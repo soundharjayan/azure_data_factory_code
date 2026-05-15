@@ -1,0 +1,84 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "soundhar2-adf-studio"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage2_accountKey": {
+			"value": ""
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"AzureDatabricks2_accessToken": {
+			"value": ""
+		},
+		"GoogleBigQuery1_keyFileContent": {
+			"value": ""
+		},
+		"MySql1_password": {
+			"value": ""
+		},
+		"MySql2_password": {
+			"value": ""
+		},
+		"MySql2_device_password": {
+			"value": ""
+		},
+		"linkedService1_accountKey": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://soundharadls.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage2_properties_typeProperties_url": {
+			"value": "https://telecomstgadls.dfs.core.windows.net/"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0422-084205-60yjvqua"
+		},
+		"AzureDatabricks2_properties_typeProperties_existingClusterId": {
+			"value": "0422-084205-60yjvqua"
+		},
+		"MySql1_properties_typeProperties_server": {
+			"value": "35.223.80.16"
+		},
+		"MySql1_properties_typeProperties_database": {
+			"value": "telco_schema"
+		},
+		"MySql1_properties_typeProperties_username": {
+			"value": "inceptez"
+		},
+		"MySql2_properties_typeProperties_server": {
+			"value": "35.223.80.16"
+		},
+		"MySql2_properties_typeProperties_database": {
+			"value": "telco_soundhar_schema"
+		},
+		"MySql2_properties_typeProperties_username": {
+			"value": "inceptez"
+		},
+		"MySql2_device_properties_typeProperties_server": {
+			"value": "35.223.80.16"
+		},
+		"MySql2_device_properties_typeProperties_database": {
+			"value": "telco_soundhar_schema"
+		},
+		"MySql2_device_properties_typeProperties_username": {
+			"value": "inceptez"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://v6.exchangerate-api.com/v6/0da37431e74ae49dc4469ff9/latest/"
+		},
+		"linkedService1_properties_typeProperties_url": {
+			"value": "https://soundharadls.dfs.core.windows.net/"
+		}
+	}
+}
