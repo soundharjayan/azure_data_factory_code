@@ -1,0 +1,84 @@
+{
+	"name": "Usecase5_RestAPI_ADLS_Notebook",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Pipeline1",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Usecase4_RestAPI_to_ADLS",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"currency_list": {
+							"value": "@pipeline().parameters.currency_list",
+							"type": "Expression"
+						},
+						"filename": {
+							"value": "@pipeline().parameters.filename",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Execute Pipeline1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/vijaysoundhar9602@outlook.com/databricks-code-repo/Databricks_workout_2025/4_Azure_Cloud/Usecase_8_ADF_API_CALL_JSON_PARSE",
+					"baseParameters": {
+						"filename": {
+							"value": "@pipeline().parameters.filename",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"currency_list": {
+				"type": "array",
+				"defaultValue": [
+					"USD",
+					"SGD",
+					"INR",
+					"AED"
+				]
+			},
+			"filename": {
+				"type": "string",
+				"defaultValue": "CurrencyData"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-12T15:31:40Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

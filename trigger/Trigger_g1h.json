@@ -1,0 +1,17 @@
+{
+	"name": "Trigger_g1h",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 30,
+				"startTime": "2026-04-25T20:38:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}

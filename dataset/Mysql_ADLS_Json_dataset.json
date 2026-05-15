@@ -1,0 +1,21 @@
+{
+	"name": "Mysql_ADLS_Json_dataset",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dim_device",
+				"folderPath": "2.mysql_db_to_adls",
+				"fileSystem": "telecom-cont-1"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

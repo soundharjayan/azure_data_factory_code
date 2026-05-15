@@ -1,0 +1,13 @@
+{
+	"name": "RestService1",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "RestService",
+		"typeProperties": {
+			"url": "https://v6.exchangerate-api.com/v6/0da37431e74ae49dc4469ff9/latest/",
+			"enableServerCertificateValidation": true,
+			"authenticationType": "Anonymous"
+		}
+	}
+}

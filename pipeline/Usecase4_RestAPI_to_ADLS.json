@@ -1,0 +1,172 @@
+{
+	"name": "Usecase4_RestAPI_to_ADLS",
+	"properties": {
+		"activities": [
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "currency_list",
+					"value": {
+						"value": "@pipeline().parameters.currency_list",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "ForEach1",
+				"description": "",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@pipeline().parameters.currency_list",
+						"type": "Expression"
+					},
+					"isSequential": true,
+					"activities": [
+						{
+							"name": "Web1",
+							"type": "WebActivity",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"method": "GET",
+								"url": {
+									"value": "@concat('https://v6.exchangerate-api.com/v6/0da37431e74ae49dc4469ff9/latest/',item())",
+									"type": "Expression"
+								}
+							}
+						},
+						{
+							"name": "ADLS",
+							"type": "Copy",
+							"dependsOn": [
+								{
+									"activity": "Web1",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "MySqlSource",
+									"additionalColumns": [
+										{
+											"name": "currency",
+											"value": {
+												"value": "@string(item())",
+												"type": "Expression"
+											}
+										},
+										{
+											"name": "webjson",
+											"value": {
+												"value": "@string(activity('Web1').output)",
+												"type": "Expression"
+											}
+										}
+									],
+									"query": "select 1 as dummy"
+								},
+								"sink": {
+									"type": "JsonSink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": "FlattenHierarchy"
+									},
+									"formatSettings": {
+										"type": "JsonWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "GCP_MySql_RestAPI",
+									"type": "DatasetReference"
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "currency_json",
+									"type": "DatasetReference"
+								}
+							]
+						}
+					]
+				}
+			},
+			{
+				"name": "Fail1",
+				"type": "Fail",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"message": "Incorrect variable passed",
+					"errorCode": "100"
+				}
+			}
+		],
+		"parameters": {
+			"currency_list": {
+				"type": "Array",
+				"defaultValue": [
+					"USD",
+					"SGD",
+					"INR",
+					"AED"
+				]
+			},
+			"filename": {
+				"type": "string",
+				"defaultValue": "CurrencyData"
+			}
+		},
+		"variables": {
+			"currency_list": {
+				"type": "Array"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-12T10:00:44Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

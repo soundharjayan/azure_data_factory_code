@@ -1,0 +1,13 @@
+{
+	"name": "GCP_MySql_RestAPI",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySql2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
